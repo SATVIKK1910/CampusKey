@@ -48,11 +48,12 @@ This system enhances operational efficiency, reduces paperwork, and ensures data
    ```bash
    git clone https://github.com/yourusername/campus-key.git
 
-cd campus-key
-Install dependencies:
-pip install -r requirements.txt
-Run the development server:
-python manage.py runserver
+   ```bash 
+   cd campus-key
+   Install dependencies:
+   pip install -r requirements.txt
+   Run the development server:
+   python manage.py runserver
 
 
 ## **Status: Under Development 🚧**
