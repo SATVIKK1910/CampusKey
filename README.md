@@ -1,3 +1,7 @@
+**Note:**  
+🚧 This project is currently under development. All files and the complete code will be uploaded soon, along with modifications and improvements. Stay tuned!  
+
+---
 # **Campus Key**
 
 Campus Key revolutionizes college management by digitizing and centralizing student records. It offers an all-in-one platform where students' personal, academic, and extracurricular data are stored securely and can be accessed instantly using unique QR codes.
