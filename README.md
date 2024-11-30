@@ -47,13 +47,12 @@ This system enhances operational efficiency, reduces paperwork, and ensures data
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/campus-key.git
-
-   ```bash 
-   cd campus-key
-   Install dependencies:
-   pip install -r requirements.txt
-   Run the development server:
-   python manage.py runserver
+   
+`cd campus-key`
+Install dependencies:
+`pip install -r requirements.txt`
+Run the development server:
+`python manage.py runserver`
 
 
 ## **Status: Under Development 🚧**
