@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>QR Code Scanner</title>
+  </head>
+  <body>
+    <h1>Scan QR Code</h1>
+
+    <!-- Camera feed for QR code scanning -->
+    <div id="reader" style="width: 100%; height: 400px;"></div>
+
+    <p>Scan a QR code to verify student details, or upload a photo with a QR code.</p>
+
+    <!-- File input for QR code image upload -->
+    <input type="file" id="upload" accept="image/*" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+
+    <script type="text/javascript">
+      // Success handler for QR code scan
+      function onScanSuccess(decodedText, decodedResult) {
+        // Assuming QR code is in the format "Name: rohan, Institution"
+        const decodedParts = decodedText.split(':');
+        if (decodedParts.length > 1) {
+          const studentId = decodedParts[1].trim().replace(/%20/g, ' ');  // Handle URL encoding
+          // Fetch student verification from the server
+          fetch(`/student/verify/${studentId}/`)
+            .then(response => response.json())
+            .then(data => {
+              if (data.error) {
+                alert('Student not found');
+              } else {
+                alert('Student found: ' + data.name);
+                // Optionally redirect to student details page
+                window.location.href = `/student/details/${studentId}/`;
+              }
+            })
+            .catch(err => console.error('Error:', err));
+        } else {
+          alert("Invalid QR Code format");
+        }
+      }
+
+      // Failure handler for QR code scan
+      function onScanFailure(error) {
+        console.warn(`Scan failed: ${error}`);
+      }
+
+      const html5QrCode = new Html5Qrcode("reader");
+
+      // Start QR code scanning from the camera
+      html5QrCode.start(
+        { facingMode: "environment" },  // Use the back camera
+        {
+          fps: 10,  // Frames per second
+          qrbox: 250  // QR code scanning box size
+        },
+        onScanSuccess,
+        onScanFailure
+      ).catch(err => {
+        console.error('Error starting QR code scanning:', err);
+      });
+
+      // Handle file input for QR code image upload
+      document.getElementById('upload').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const imageUrl = e.target.result;
+            const image = new Image();
+            image.src = imageUrl;
+
+            image.onload = function() {
+              html5QrCode.scanFile(file)
+                .then(onScanSuccess)
+                .catch(onScanFailure);
+            };
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <style media="screen">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #c9c9c9;
+            padding: 2vw;
+        }
+
+        .header {
+            display: flex;
+            padding: 2vw;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand p {
+            font-weight: 600;
+            font-size: 1.5vw;
+        }
+
+        .links a {
+            font-weight: 400;
+            font-size: 1.2vw;
+            text-decoration: none;
+            color: black;
+            margin-left: 2vw;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2vw;
+            width: 100%;
+            flex-wrap: wrap;
+            margin-bottom: 3vw;
+        }
+
+        .search-container input,
+        .search-container button {
+            padding: 1vw;
+            font-size: 1.2vw;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .search-container input {
+            flex: 1 1 30%;
+            margin-left: 1vw;
+        }
+
+        .search-container button {
+            flex-basis: 15%;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .search-container button:active {
+            background-color: #00408d;
+        }
+
+        .header-list {
+            display: flex;
+            /* justify-content: space-between; */
+
+            margin-bottom: 1.5vw;
+            font-size: 1.2vw;
+            font-weight: 500;
+        }
+
+        .header-list p {
+            /* flex: 1 1 20%; */
+            text-align: center;
+            margin-left: 10vw;
+        }
+
+        .student-list {
+            width: 100%;
+            margin-top: 2vw;
+        }
+
+        .student-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid black;
+            padding: 1vw;
+            background-color: gray;
+            margin-bottom: 1.5vw;
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+
+        .student-card p {
+            font-size: 1.2vw;
+            margin-right: 1.5vw;
+            flex: 1 1 20%;
+            text-align: center;
+        }
+
+        .student-card button {
+            padding: 0.8vw 1.5vw;
+            font-size: 1.2vw;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .student-card button:hover {
+            background-color: #0056b3;
+        }
+
+        .student-card button:active {
+            background-color: #00408d;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="brand">
+            <p>Indian Institute of India Delhi</p>
+        </div>
+        <div class="links">
+            <a href="#" style="color:white;">Institution</a>
+            <a href="#">Voting</a>
+            <a href="#">Student Edit</a>
+            <a href="{% url 'create_student' %}">New Student</a>
+        </div>
+    </div>
+
+    <!-- Search and Filter buttons above the headers -->
+    <div class="search-container">
+        <input type="text" name="" placeholder="Search Student">
+        <button type="button" name="button">Search</button>
+        <button type="button" name="button">Filter</button>
+    </div>
+
+    <!-- Header for Student Data -->
+    <div class="header-list">
+        <p>Name</p>
+        <p>ID</p>
+        <p>Phone number</p>
+        <p>Email</p>
+    </div>
+
+    <!-- Student Data -->
+    <div class="student-list">
+        {% for student in students %}
+        <div class="student-card">
+            <p>{{ student.name }}</p>
+            <p>{{ student.sid }}</p>
+            <p>{{ student.phone_number }}</p>
+            <p>{{ student.email }}</p>
+            <div>
+                <a href="{% url 'add_academic_info' student_id=student.id %}">
+                    <button type="button" name="button">Add Academic</button>
+                </a>
+            </div>
+            <a href="{% url 'edit_student' student_id=student.id %}">
+                <button type="button" name="button">View Student</button>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

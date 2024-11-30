@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+      /* Reset and general styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Arial', sans-serif;
+      }
+
+      body {
+        background: #c9c9c9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: #333;
+      }
+
+      .login-form {
+        background: #ffffff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+
+      .login-form h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: #444;
+      }
+
+      .login-form input {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+      }
+
+      .login-form input:focus {
+        outline: none;
+        border-color: #2575fc;
+      }
+
+      .login-form button {
+        width: 100%;
+        padding: 0.75rem;
+        background: #2575fc;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .login-form button:hover {
+        background: #0056d2;
+      }
+
+      .login-form p {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      .login-form a {
+        color: #2575fc;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+      }
+
+      .login-form a:hover {
+        color: #0056d2;
+      }
+    </style>
+  </head>
+  <body>
+    <form class="login-form" method="post">
+      {% csrf_token %}
+      <h1>Login</h1>
+      <input type="text" name="username" placeholder="Enter your username" required>
+      <input type="password" name="password" placeholder="Enter your password" required>
+      <button type="submit">Login</button>
+      <p>Don't have an account? <a href="/register">Sign up</a></p>
+    </form>
+  </body>
+</html>

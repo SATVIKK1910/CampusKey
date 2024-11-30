@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <style media="screen">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2vw;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 2vw 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .brand p {
+            font-weight: 600;
+            font-size: 1.5vw;
+        }
+        .links a {
+            font-weight: 400;
+            font-size: 1.1vw;
+            text-decoration: none;
+            color: black;
+            margin-left: 2vw;
+        }
+        .details {
+            background-color: white;
+            border-radius: 8px;
+            padding: 3vw;
+            margin-top: 2vw;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .details h3 {
+            font-size: 2vw;
+            margin-bottom: 1vw;
+        }
+        .details p {
+            font-size: 1.2vw;
+            margin: 1vw 0;
+        }
+        .institution {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 2vw;
+            margin-top: 2vw;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .institution h3 {
+            font-size: 2vw;
+            margin-bottom: 1vw;
+        }
+        .table-container {
+            margin-top: 2vw;
+            background-color: white;
+            padding: 2vw;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2vw;
+        }
+        table th, table td {
+            padding: 1vw;
+            text-align: left;
+            font-size: 1.1vw;
+            border-bottom: 1px solid #ddd;
+        }
+        .doc-list {
+            margin-top: 2vw;
+            list-style-type: none;
+        }
+        .doc-list li {
+            font-size: 1.1vw;
+            margin: 0.5vw 0;
+        }
+        .doc-list a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .footer {
+            margin-top: 5vw;
+            text-align: center;
+            font-size: 1.2vw;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header Section -->
+    <div class="header">
+        <div class="brand">
+            <p>CampusKey</p>
+        </div>
+        <div class="links">
+            <a href="#">Institution</a>
+            <a href="#">Student</a>
+            <a href="#">Student Verify</a>
+            <a href="#">Student Data</a>
+        </div>
+    </div>
+
+    <!-- Institution Information Section -->
+    <div class="institution">
+        <h3>Institution Information</h3>
+        <p><strong>Name:</strong> {{ institution.name }}</p>
+        <p><strong>Address:</strong> {{ institution.address }}</p>
+        <p><strong>Email:</strong> {{ institution.email }}</p>
+        <p><strong>Phone:</strong> {{ institution.phone }}</p>
+        <p><strong>Established:</strong> {{ institution.established_date }}</p>
+    </div>
+
+    <!-- Student Details Section -->
+    <div class="details">
+        <h3>{{ student.name }}</h3>
+        <p><strong>Email:</strong> {{ student.email }}</p>
+        <p><strong>Phone:</strong> {{ student.phone_number }}</p>
+        <p><strong>Batch:</strong> {{ student.batch }}</p>
+        <p><strong>Branch:</strong> {{ student.branch }}</p>
+    </div>
+
+    <!-- Academic Information Section -->
+    <div class="table-container">
+        <h3>Academic Information</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Grade</th>
+                    <th>Semester</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for info in academic_info %}
+                <tr>
+                    <td>{{ info.course_name }}</td>
+                    <td>{{ info.grade }}</td>
+                    <td>{{ info.semester }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No academic information available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Documents Section -->
+    <div class="table-container">
+        <h3>Documents</h3>
+        <ul class="doc-list">
+            {% for doc in documents %}
+            <li>{{ doc.document_type }}: <a href="{{ doc.document_file.url }}" target="_blank">View Document</a></li>
+            {% empty %}
+            <li>No documents uploaded.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <p>&copy; 2024 CampusKey. All Rights Reserved.</p>
+    </div>
+</div>
+
+</body>
+</html>
